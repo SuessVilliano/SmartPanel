@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Hybrid | Smart Trading Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: #d1d4dc;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Light theme styles */
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        body.light-mode .hero,
+        body.light-mode .section,
+        body.light-mode .footer {
+            background-color: #ffffff;
+            color: #333;
+            border-color: #333;
+        }
+
+        body.light-mode a {
+            color: #007bff;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+
+        a {
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e005f, #00ffff);
+            border-radius: 20px;
+            padding: 40px;
+            color: #fff;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        .hero:hover {
+            transform: scale(1.02);
+        }
+
+        .section {
+            background: linear-gradient(135deg, #161616, #1e1e2d);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, #00ffff, #ff00ff);
+            border-image-slice: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+        }
+
+        .section h2 {
+            color: #00ffff;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #d1d4dc;
+        }
+
+        .buy-now {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .buy-now .plan {
+            background: #1e1e2d;
+            border-radius: 15px;
+            padding: 20px;
+            width: 30%;
+            min-width: 260px;
+            margin-bottom: 20px;
+            border: 2px solid;
+            border-image-source: linear-gradient(135deg, #00ffff, #ff00ff);
+            border-image-slice: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .buy-now .plan:hover {
+            transform: translateY(-10px);
+        }
+
+        .buy-now .plan h3 {
+            font-size: 28px;
+            color: #00ffff;
+        }
+
+        .buy-now .plan p {
+            font-size: 22px;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .buy-now .plan .price {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ff00ff;
+        }
+
+        .buy-now .plan a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff00ff;
+            color: #fff;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .buy-now .plan a:hover {
+            background-color: #00ffff;
+            color: #0d0d0d;
+        }
+
+        .about {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .about h2 {
+            color: #ff00ff;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: #1e1e2d;
+            padding: 20px;
+            text-align: center;
+            color: #d1d4dc;
+            border-top: 2px solid #ff00ff;
+        }
+
+        .footer a {
+            color: #00ffff;
+            text-decoration: underline;
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .buy-now {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .buy-now .plan {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Toggle button as an icon */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 24px;
+            color: #ff00ff;
+        }
+
+        .toggle-btn:hover {
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+    </button>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero animate-on-scroll">
+            <h1>Welcome to Trade Hybrid's Smart Trading Panel</h1>
+            <p>The ultimate tool for next-level traders. Experience the future of trading with our cutting-edge smart panel, designed to give you the edge in every market.</p>
+        </section>
+
+        <!-- Why We Created It -->
+        <section class="section animate-on-scroll">
+            <h2>Why We Created It</h2>
+            <p>In today's fast-paced trading environment, we recognized the need for a powerful, user-friendly tool that could streamline trading processes across multiple platforms. Our Smart Trading Panel was born out of this necessity to offer traders a comprehensive solution that integrates live market data, seamless execution, and intelligent trade management—all in one place.</p>
+        </section>
+
+        <!-- What It Is -->
+        <section class="section animate-on-scroll">
+            <h2>What It Is</h2>
+            <p>The Smart Trading Panel by Trade Hybrid is a multi-functional, web-based trading interface that allows you to trade across various brokers and platforms with ease. It features real-time data fetching, broker comparison tools, customizable trade settings, and seamless execution. Whether you're trading crypto, forex, stocks, or futures, our panel is designed to give you complete control over your trading strategy.</p>
+        </section>
+
+        <!-- How It Works -->
+        <section class="section animate-on-scroll">
+            <h2>How It Works</h2>
+            <p>Our Smart Trading Panel connects directly to your favorite trading platforms via API integration, fetching live data such as prices, spreads, and volume. Once you’ve selected your bot and generated a secure token through our integration with TaskMagic, you’ll enter the token into the panel. This token allows our panel to recognize your bot and settings, ensuring secure and seamless trade execution.</p>
+            <p>When you’re ready to trade, simply configure your settings within the panel, compare broker data to find the best opportunity, and execute your trade—all without leaving the page. With AI-powered support via our integrated chatbot, you'll have the insights and analysis you need to make informed decisions.</p>
+        </section>
+
+        <!-- Security Emphasis -->
+        <section class="section animate-on-scroll">
+            <h2>Security and Privacy</h2>
+            <p>We take your security seriously. By utilizing a token-based system powered by TaskMagic, we ensure that sensitive API keys are never exposed. Instead, your API keys are securely stored in Azure Key Vault, and only the token is used to authenticate your trades. This approach provides an extra layer of security, giving you peace of mind while you focus on trading.</p>
+        </section>
+
+        <!-- Buy Now Section -->
+        <section class="section buy-now animate-on-scroll">
+            <div class="plan">
+                <h3>1 License</h3>
+                <p>Perfect for individual traders</p>
+                <div class="price">$99/month</div>
+                <a href="https://www.tradehybrid.co" target="_blank">Buy Now</a>
+            </div>
+            <div class="plan">
+                <h3>3 Licenses</h3>
+                <p>Ideal for small trading teams</p>
+                <div class="price">$199/month</div>
+                <a href="https://www.tradehybrid.co" target="_blank">Buy Now</a>
+            </div>
+            <div class="plan">
+                <h3>5 Licenses</h3>
+                <p>Great for larger groups</p>
+                <div class="price">$299/month</div>
+                <a href="https://www.tradehybrid.co" target="_blank">Buy Now</a>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section class="section about animate-on-scroll">
+            <h2>About Us</h2>
+            <p>At Trade Hybrid, we are passionate about creating innovative solutions for the modern trader. Our team consists of experienced developers, financial experts, and user experience designers who work tirelessly to ensure our products meet the highest standards of quality and performance.</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Trade Hybrid. All rights reserved. | <a href="https://www.tradehybrid.co/contact" target="_blank">Contact Us</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Scroll Animation
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            body.classList.toggle('light-mode');
+
+            // Change the icon based on the theme
+            if (body.classList.contains('light-mode')) {
+                themeIcon.textContent = '☀️'; // Sun icon for light mode
+            } else {
+                themeIcon.textContent = '🌙'; // Moon icon for dark mode
+            }
+        }
+    </script>
+</body>
+</html>
